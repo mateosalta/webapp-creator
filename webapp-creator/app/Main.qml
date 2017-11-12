@@ -147,7 +147,9 @@ MainView {
                         }
                         inputMethodHints: Qt.ImhUrlCharactersOnly
                         placeholderText: i18n.tr("Website <b>URL</b>. Without 'http://'")
-                        //onAccepted: appTitle.focus = true;
+                        onAccepted: appTitle.focus = true, appUrl.focus = false, flickable.contentY = flickable.contentY + 200
+                        //Focus experiment
+
                     }
                 }
                 Column {
@@ -157,6 +159,8 @@ MainView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: urlColumn.bottom
                     anchors.topMargin: units.gu(5)
+
+
                     Label {
                         id: basicInfoTitle
                         width: parent.width
@@ -173,6 +177,9 @@ MainView {
                             right: parent.right
                         }
                         placeholderText: i18n.tr("The <b>title</b> to be shown in the app scope")
+                        onAccepted: appName.focus = true, flickable.contentY = flickable.contentY + 200
+
+
                     }
                     TextField {
                         color: text != "" && !lib.lowercase(text) || lib.validName(text) ? UbuntuColors.red : "#000000"
@@ -184,6 +191,7 @@ MainView {
                         }
                         inputMethodHints: Qt.ImhUrlCharactersOnly //Should be: inputMethodHints: Qt.ImhLowercaseOnly
                         placeholderText: i18n.tr("Lowercase app <b>name</b> with no spaces")
+                        onAccepted: appDescription.focus = true, flickable.contentY = flickable.contentY + 200
 
                     }
                     TextArea {
@@ -198,6 +206,8 @@ MainView {
                         contentHeight: height + units.gu(20)
                         maximumLineCount: 0
                         placeholderText: i18n.tr("App <b>description</b> to be shown in the OpenStore")
+                       // onAccepted: appMaintainer.focus = true, flickable.contentY = flickable.contentY + 100
+
                     }
 
                     TextField {
@@ -208,6 +218,13 @@ MainView {
                             right: parent.right
                         }
                         placeholderText: i18n.tr("Maintainer's <b>real name</b>")
+                        onAccepted: appEmail.focus = true, flickable.contentY = flickable.contentY + 200
+                        //Focus experiment
+                        /*
+                        onFocusChanged: {
+                            var posWithinFlickable = mapToItem(mainColumn, 0, height / 2)
+                            flickable.contentY = posWithinFlickable.y - flickable.height / 2 * 0.3
+                        } */
                     }
                     TextField {
                         color: text != "" && !lib.email(text) ? UbuntuColors.red : "#000000"
@@ -221,6 +238,8 @@ MainView {
                         }
                         inputMethodHints: Qt.ImhEmailCharactersOnly
                         placeholderText: i18n.tr("Maintainer's <b>email</b>")
+                        onAccepted: appNick.focus = true, flickable.contentY = flickable.contentY + 200
+
 
                     }
                     TextField {
@@ -236,6 +255,8 @@ MainView {
                         //font.capitalization: Font.AllLowercase
                         inputMethodHints: Qt.ImhUrlCharactersOnly //Should be: inputMethodHints: Qt.ImhLowercaseOnly
                         placeholderText: i18n.tr("Lowercase maintainer's <b>nickname</b> with no spaces")
+                        onAccepted: appVersion.focus = true, flickable.contentY = flickable.contentY + 200
+
 
                     }
                     TextField {
@@ -247,6 +268,9 @@ MainView {
                         }
                         placeholderText: i18n.tr("App <b>version</b>")
                         inputMethodHints: Qt.ImhDigitsOnly
+                        onAccepted: appDescription.focus = true, flickable.contentY = flickable.contentY + 100
+                        //Focus experiment
+
                     }
                 }
 
