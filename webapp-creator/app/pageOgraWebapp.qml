@@ -68,7 +68,7 @@ Page {
 				font.bold: true
 			}
             
-            TextArea {
+          /*  TextArea {
                 id: ograUserAgent
                 width: parent.width
                 height: units.gu(15)
@@ -77,7 +77,40 @@ Page {
                 maximumLineCount: 0
                 placeholderText: i18n.tr("Optional: Override the default User Agent with the provided one")
                 onFocusChanged: text != "" ? optionsVector = optionsVector.slice(0,5) + "1" + optionsVector.slice(6) : optionsVector = optionsVector.slice(0,5) + "0" + optionsVector.slice(6)
+            } */
+
+            OptionSelector {
+            objectName: "optionselector_multipleselection"
+            text: i18n.tr("User Agent")
+            expanded: false
+            width:parent.width
+            colourImage: true
+            multiSelection: false
+            model: [i18n.tr("Default"),
+            i18n.tr("Desktop"),
+            i18n.tr("Android"),
+            i18n.tr("iOS")]
             }
+
+            OptionSelector {
+            text: i18n.tr("Label")
+            model: customModel
+            expanded: false
+            colourImage: true
+            delegate: selectorDelegate
+            }
+            Component {
+            id: selectorDelegate
+            OptionSelectorDelegate { text: name; subText: description }
+            }
+            ListModel {
+            id: customModel
+            ListElement { name: "Windows 10"; description: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+            ListElement { name: "macOS"; description: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+            ListElement { name: "Chromebook"; description: "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"}
+            ListElement { name: "iOS 10"; description: "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A346 Safari/602.1"}
+            }
+
             Row {
                 spacing: units.gu(1)
                 CheckBox {
