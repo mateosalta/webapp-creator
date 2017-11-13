@@ -29,7 +29,7 @@ public:
     // The function inserts the URLs and settings of the webapp into a desktop file.
     Q_INVOKABLE void insertDesktop(QString qname, QString qcom, QString qtitle, QString qurl, QString qarg,
                        QString qsubUrl1, QString qsubUrl2, QString qsubUrl3, QString qurls,
-                       QString qPROVIDER, QString qUSER_AGENT, bool https, bool ogra, bool png, QString qhex);
+                       QString qPROVIDER, QString qUSER_AGENT, bool https, bool ogra, bool png, QString qhex, QString quserscript);
 
     // This function sets the config.js file of Ogra's alternate webapp container
     Q_INVOKABLE void insertConfig (QString qname, QString qalias, QString qurl, QString qsubUrl1,
@@ -37,7 +37,7 @@ public:
                        QString qUSER_AGENT, bool https, bool UA, bool audibleLinks);
 
     // This function sets the qml files of Ogra's alternate webapp container
-    Q_INVOKABLE void insertQML (QString qname, QString qalias);
+    Q_INVOKABLE void insertQML (QString qname, QString qalias, QString quserscript);
 
     // This function creates the Webapp files and folders
     Q_INVOKABLE void createFiles(QString qname, bool ogra, bool png, bool selIcon, QString iconSource);

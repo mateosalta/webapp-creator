@@ -148,7 +148,7 @@ void MyType::insertApparmor (QString qgroups, QString qname, bool ogra){
 // The function inserts the URLs and settings of the webapp into a desktop file.
 void MyType::insertDesktop(QString qname, QString qcom, QString qtitle, QString qurl, QString qarg,
                    QString qsubUrl1, QString qsubUrl2, QString qsubUrl3, QString qurls,
-                   QString qPROVIDER, QString qUSER_AGENT, bool https, bool ogra, bool png, QString qhex){
+                   QString qPROVIDER, QString qUSER_AGENT, bool https, bool ogra, bool png, QString qhex, QString quserscript){
     char name[SHORT] = {'\0'};
     strcat(name, qname.toUtf8().data());
 
@@ -185,6 +185,9 @@ void MyType::insertDesktop(QString qname, QString qcom, QString qtitle, QString 
     char hex[SHORT] = {'\0'};
     strcat(hex, qhex.toUtf8().data());
 
+    char userscript[SHORT] = {'\0'};
+    strcat(userscript, quserscript.toUtf8().data());
+
     char file[] = "";
     strcat(file,workPath);
     strcat(file,qname.toUtf8().data());
@@ -192,7 +195,7 @@ void MyType::insertDesktop(QString qname, QString qcom, QString qtitle, QString 
     fstream f(file);
     f  << "[Desktop Entry]\n"
     "Name=" << qtitle.toUtf8().data() << "\n"
-    "Comment= " << qcom.toUtf8().data() << "\n"
+    "Comment=" << qcom.toUtf8().data() << "\n"
     "Type=Application\n";
     if (png) { f << "Icon=" << qname.toUtf8().data() << ".png\n";}
     else { f << "Icon=" << qname.toUtf8().data() << ".svg\n";}
@@ -300,7 +303,7 @@ void MyType::insertConfig (QString qname, QString qalias, QString qurl, QString 
 }
 
 // This function sets the qml files of Ogra's alternate webapp container
-void MyType::insertQML (QString qname, QString qalias){
+void MyType::insertQML (QString qname, QString qalias, QString quserscript){
 
     char name[SHORT] = {'\0'};
     strcat(name, qname.toUtf8().data());
@@ -379,7 +382,7 @@ void MyType::insertQML (QString qname, QString qalias){
     "                userScripts: [\n"
     "                    Oxide.UserScript {\n"
     "                        context: \"oxide://\"\n"
-    "                        url: Qt.resolvedUrl(\"../userscripts/ubuntutheme.js\")\n"
+    "                        url: Qt.resolvedUrl(\"../userscripts/" << quserscript.toUtf8().data() << "\")\n"
     "                        matchAllFrames: true\n"
     "                    }\n"
     "                ]\n"

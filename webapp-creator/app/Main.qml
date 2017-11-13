@@ -216,11 +216,7 @@ MainView {
                         contentHeight: height + units.gu(20)
                         maximumLineCount: 0
                         placeholderText: i18n.tr("App <b>description</b> to be shown in the OpenStore")
-                        onAccepted: {
 
-                            appMaintainer.focus = true
-                            //flickable.contentY = flickable.contentY + 200
-                        }
                     }
 
                     TextField {
