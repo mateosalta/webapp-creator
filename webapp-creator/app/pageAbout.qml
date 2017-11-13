@@ -47,6 +47,7 @@ Page {
                 radius: "medium"
                 image: Image {
                     source: Qt.resolvedUrl("../../../graphics/webapp-creator.svg")        // LOGO DE LA APP
+                    asynchronous: true
                 }
                                                                                                                                                             MouseArea {
                                                                                                                                                                 anchors.fill: parent

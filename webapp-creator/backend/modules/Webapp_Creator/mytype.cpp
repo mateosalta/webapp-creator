@@ -148,7 +148,7 @@ void MyType::insertApparmor (QString qgroups, QString qname, bool ogra){
 // The function inserts the URLs and settings of the webapp into a desktop file.
 void MyType::insertDesktop(QString qname, QString qcom, QString qtitle, QString qurl, QString qarg,
                    QString qsubUrl1, QString qsubUrl2, QString qsubUrl3, QString qurls,
-                   QString qPROVIDER, QString qUSER_AGENT, bool https, bool ogra, bool png, QString qhex, QString quserscript){
+                   QString qPROVIDER, QString qUSER_AGENT, bool https, bool ogra, bool png, QString qhex){
     char name[SHORT] = {'\0'};
     strcat(name, qname.toUtf8().data());
 
@@ -185,8 +185,8 @@ void MyType::insertDesktop(QString qname, QString qcom, QString qtitle, QString 
     char hex[SHORT] = {'\0'};
     strcat(hex, qhex.toUtf8().data());
 
-    char userscript[SHORT] = {'\0'};
-    strcat(userscript, quserscript.toUtf8().data());
+   /* char userscript[SHORT] = {'\0'};
+    strcat(userscript, quserscript.toUtf8().data()); */
 
     char file[] = "";
     strcat(file,workPath);

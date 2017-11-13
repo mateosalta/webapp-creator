@@ -102,6 +102,7 @@ Page {
                 width: parent.width
                 source: "../../../graphics/howto.svg"
                 fillMode: Image.PreserveAspectFit
+                asynchronous: true
             }
 
 			Button {

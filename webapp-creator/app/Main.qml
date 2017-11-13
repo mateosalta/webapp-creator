@@ -3,7 +3,6 @@ import Ubuntu.Components 1.3
 import Webapp_Creator 1.0
 import Qt.labs.settings 1.0
 
-
 //import Ubuntu.Components.Popups 1.3
 
 //import Qt.labs.settings 1.0
@@ -16,6 +15,7 @@ import Ubuntu.Content 1.3
 */
 
 MainView {
+
 	id: mainView
     objectName: "mainView"
 
@@ -107,6 +107,10 @@ MainView {
                         source: Image {
                             id: imageSource
                             source: iconImageSource
+
+                            // feel faster
+                            asynchronous: true
+
                         }
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: units.gu(20)
