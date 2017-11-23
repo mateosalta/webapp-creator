@@ -303,7 +303,7 @@ void MyType::insertConfig (QString qname, QString qalias, QString qurl, QString 
 }
 
 // This function sets the qml files of Ogra's alternate webapp container
-void MyType::insertQML (QString qname, QString qalias, QString quserscript){
+void MyType::insertQML (QString qname, QString qalias){
 
     char name[SHORT] = {'\0'};
     strcat(name, qname.toUtf8().data());
@@ -312,6 +312,8 @@ void MyType::insertQML (QString qname, QString qalias, QString quserscript){
     strcat(alias, qalias.toUtf8().data());
 
 
+ /*    char userscript[SHORT] = {'\0'};
+     strcat(userscript, quserscript.toUtf8().data());*/
 
 
     char file[] = "";
@@ -379,13 +381,13 @@ void MyType::insertQML (QString qname, QString qalias, QString quserscript){
     " WebContext {\n"
     "                id: webcontext\n"
     "                userAgent: myUA\n"
-    "                userScripts: [\n"
+  /*  "                userScripts: [\n"
     "                    Oxide.UserScript {\n"
     "                        context: \"oxide://\"\n"
     "                        url: Qt.resolvedUrl(\"../userscripts/" << quserscript.toUtf8().data() << "\")\n"
     "                        matchAllFrames: true\n"
-    "                    }\n"
-    "                ]\n"
+    "                    }
+    "                ]\n"\n"*/
     "            }"
     "\n"
     "        WebView {\n"

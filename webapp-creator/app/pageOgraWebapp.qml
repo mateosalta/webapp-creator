@@ -78,7 +78,7 @@ Page {
                 placeholderText: i18n.tr("Optional: Override the default User Agent with the provided one")
                 onFocusChanged: text != "" ? optionsVector = optionsVector.slice(0,5) + "1" + optionsVector.slice(6) : optionsVector = optionsVector.slice(0,5) + "0" + optionsVector.slice(6)
             } */
-
+/*
             OptionSelector {
             objectName: "optionselector_multipleselection"
             text: i18n.tr("User Agent")
@@ -91,26 +91,46 @@ Page {
             i18n.tr("Android"),
             i18n.tr("iOS")]
             }
+*/
+            // select user agent
 
+            Row {
+                spacing: units.gu(1)
+                CheckBox {
+                    id: useUA
+                    checked: false
+                }
+                Label {
+                    text: i18n.tr("Use Custom UA")
+                }
+            }
             OptionSelector {
-            text: i18n.tr("Label")
-            model: customModel
-            expanded: false
-            colourImage: true
-            delegate: selectorDelegate
+                id: optionSelector
+                model: listModel
+                delegate: delegator
             }
             Component {
-            id: selectorDelegate
-            OptionSelectorDelegate { text: name; subText: description }
+                id: delegator
+                OptionSelectorDelegate {
+                    text: name; subText: description
+                }
             }
             ListModel {
-            id: customModel
-            ListElement { name: "Windows 10"; description: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
-            ListElement { name: "macOS"; description: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
-            ListElement { name: "Chromebook"; description: "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"}
-            ListElement { name: "iOS 10"; description: "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A346 Safari/602.1"}
+                id: listModel
+                ListElement { name: "Windows 10"; description: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+                ListElement { name: "macOS"; description: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+                ListElement { name: "Chromebook"; description: "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"}
+                ListElement { name: "iOS 10"; description: "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A346 Safari/602.1"}
+
+            }
+            Label {
+
+                width: parent.width - marginColumn * 4
+                text:  listModel.get(optionSelector.selectedIndex).description
+                wrapMode: Text.Wrap
             }
 
+            ///
             Row {
                 spacing: units.gu(1)
                 CheckBox {
@@ -306,12 +326,12 @@ Page {
 					
                     console.log("\nqml: urls")
 
-					var useUA = appUserAgent.text !== "";
+                    //var useUA = appUserAgent.text !== "";
                     console.log("\nqml: insertConfig: ")
-                    lib.insertConfig (appName.text, appNick.text, appUrl.text, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, useOgraHapticLinks.checked, appUserAgent.text, httpsUrl.checked, useUA, useOgraAudibleLinks.checked);
+                    lib.insertConfig (appName.text, appNick.text, appUrl.text, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, useOgraHapticLinks.checked, listModel.get(optionSelector.selectedIndex).description, httpsUrl.checked, useUA.checked, useOgraAudibleLinks.checked);
 					
                     console.log("\nqml: insertQML: ")
-					lib.insertQML (appName.text, appNick.text);
+                    lib.insertQML (appName.text, appNick.text/*, "ubuntustyle.js"*/);
 
 					console.log("\nqml: insertDesktop ");
                     lib.insertDesktop(appName.text, appDescription.text, appTitle.text, appUrl.text, optionsVector, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, appProviderName.text, appUserAgent.text, httpsUrl.checked, true, png, spalshScreenColor.text); //true -> isOgra?
