@@ -94,16 +94,7 @@ Page {
 */
             // select user agent
 
-            Row {
-                spacing: units.gu(1)
-                CheckBox {
-                    id: useUA
-                    checked: false
-                }
-                Label {
-                    text: i18n.tr("Use Custom UA")
-                }
-            }
+
             OptionSelector {
                 id: optionSelector
                 model: listModel
@@ -330,7 +321,7 @@ Page {
 
                     //var useUA = appUserAgent.text !== "";
                     console.log("\nqml: insertConfig: ")
-                    lib.insertConfig (appName.text, appNick.text, appUrl.text, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, useOgraHapticLinks.checked, listModel.get(optionSelector.selectedIndex).description, httpsUrl.checked, useUA.checked, useOgraAudibleLinks.checked);
+                    lib.insertConfig (appName.text, appNick.text, appUrl.text, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, useOgraHapticLinks.checked, listModel.get(optionSelector.selectedIndex).description, httpsUrl.checked, useOgraAudibleLinks.checked);
 					
                     console.log("\nqml: insertQML: ")
                     lib.insertQML (appName.text, appNick.text/*, "ubuntustyle.js"*/);

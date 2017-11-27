@@ -965,7 +965,7 @@ MainView {
 					id: optionsColumn
                     visible: combo.text === i18n.tr("Custom") ? true : false;
 					spacing: units.gu(2)
-					height: visible ? units.gu(57) : 0
+                    height: visible ? units.gu(35) : 0
 					anchors.top: permissionsColumn.bottom
 					width: parent.width	- marginColumn * 4
 					anchors.horizontalCenter: parent.horizontalCenter
@@ -973,20 +973,6 @@ MainView {
 					
 					//TODO: --inspector[=PORT] Run a remote inspector on a specified port or 9221 as the default port
 
-					Row {
-						spacing: units.gu(1)
-                        CheckBox {
-                            anchors.verticalCenter: parent.verticalCenter
-							id: fullScreen
-							checked: false
-                            onClicked: {checked ? optionsCustom = "1" + optionsCustom.slice(1) : optionsCustom = "0" + optionsCustom.slice(1)
-                            }
-						}
-						Label {
-							text: i18n.tr("Display app in full screen mode")
-						}
-					}
-					//--fullscreen
 
 					TextField {
                         id: appProviderName
@@ -1015,6 +1001,22 @@ MainView {
 						}
 					}
                     //--accountSwitcher
+
+                    Row {
+                        spacing: units.gu(1)
+                        CheckBox {
+                            anchors.verticalCenter: parent.verticalCenter
+                            id: fullScreen
+                            checked: false
+                            onClicked: {checked ? optionsCustom = "1" + optionsCustom.slice(1) : optionsCustom = "0" + optionsCustom.slice(1)
+                            }
+                        }
+                        Label {
+                            text: i18n.tr("Display app in full screen mode")
+                        }
+                    }
+                    //--fullscreen
+
                     
                     Row {
 						spacing: units.gu(1)
@@ -1043,7 +1045,7 @@ MainView {
 						}
 					}
                     //--enable-media-hub-audio 
-                    
+                    /*
                     TextArea {
                         id: appUserAgent
 						width: parent.width
@@ -1053,7 +1055,14 @@ MainView {
 						maximumLineCount: 0
                         placeholderText: i18n.tr("Optional: Override the default User Agent with the provided one")
                         onFocusChanged: text != "" ? optionsCustom = optionsCustom.slice(0,5) + "1" + optionsCustom.slice(6) : optionsCustom = optionsCustom.slice(0,5) + "0" + optionsCustom.slice(6)
-					}
+                    } */
+
+                    // select user agent
+
+
+
+
+                    ///
                     //--user-agent-string=USER_AGENT Overrides the default User Agent with the provided one.
                     
 					Row {
@@ -1517,7 +1526,35 @@ MainView {
                             wrapMode: Text.Wrap
 						}
 					}
-					
+                    Label {
+                         width: parent.width - marginColumn * 4
+                        text: i18n.tr("Optional: Override the default User Agent with the provided one")
+                        wrapMode: Text.Wrap
+
+                    }
+                    OptionSelector {
+                        id: optionSelectorSimple
+                        model: listModelSimple
+                        delegate: delegatorSimple
+                    }
+                    Component {
+                        id: delegatorSimple
+                        OptionSelectorDelegate {
+                            text: name; subText: description
+                            onFocusChanged: listModelSimple.get(optionSelectorSimple.selectedIndex).description !== "" ? optionsCustom = optionsCustom.slice(0,5) + "1" + optionsCustom.slice(6) : optionsCustom = optionsCustom.slice(0,5) + "0" + optionsCustom.slice(6)
+
+                        }
+                    }
+                    ListModel {
+                        id: listModelSimple
+                        ListElement { name: "Default"; description: ""}
+                        ListElement { name: "Windows 10"; description: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+                        ListElement { name: "macOS"; description: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+                        ListElement { name: "Chromebook"; description: "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"}
+                        ListElement { name: "iOS 10"; description: "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A346 Safari/602.1"}
+                        ListElement { name: "Android 8"; description: "Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR3.170623.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36"}
+
+                    }
 				}
 				Column {
 					id: buttonsColumn
@@ -1573,7 +1610,7 @@ MainView {
                                 if (appUrlPattern3.text !== "") {urls += "1"} else {urls = "0"};
 
                                 console.log("\nqml: insertDesktop ")
-                                lib.insertDesktop(appName.text, appDescription.text, appTitle.text, appUrl.text, optionsVector, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, appProviderName.text, appUserAgent.text, httpsUrl.checked, false, png, spalshScreenColor.text); //false -> isOgra?
+                                lib.insertDesktop(appName.text, appDescription.text, appTitle.text, appUrl.text, optionsVector, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, appProviderName.text, listModelSimple.get(optionSelectorSimple.selectedIndex).description, httpsUrl.checked, false, png, spalshScreenColor.text); //false -> isOgra?
 
                                 //Generate the click
                                 console.log("\nqml: genClick ")

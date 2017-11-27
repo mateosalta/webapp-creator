@@ -34,7 +34,7 @@ public:
     // This function sets the config.js file of Ogra's alternate webapp container
     Q_INVOKABLE void insertConfig (QString qname, QString qalias, QString qurl, QString qsubUrl1,
                        QString qsubUrl2, QString qsubUrl3, QString qurls, bool hapticLinks,
-                       QString qUSER_AGENT, bool https, bool UA, bool audibleLinks);
+                       QString qUSER_AGENT, bool https, bool audibleLinks);
 
     // This function sets the qml files of Ogra's alternate webapp container
     Q_INVOKABLE void insertQML (QString qname, QString qalias);

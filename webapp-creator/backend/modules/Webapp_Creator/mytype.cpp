@@ -241,7 +241,7 @@ void MyType::insertDesktop(QString qname, QString qcom, QString qtitle, QString 
 // This function sets the config.js file of Ogra's alternate webapp container
 void MyType::insertConfig (QString qname, QString qalias, QString qurl, QString qsubUrl1,
                    QString qsubUrl2, QString qsubUrl3, QString qurls, bool hapticLinks,
-                   QString qUSER_AGENT, bool https, bool UA, bool audibleLinks){
+                   QString qUSER_AGENT, bool https, bool audibleLinks){
 
     char name[SHORT] = {'\0'};
     strcat(name, qname.toUtf8().data());
@@ -296,7 +296,7 @@ void MyType::insertConfig (QString qname, QString qalias, QString qurl, QString 
         f << "://" << qsubUrl3.toUtf8().data();
     }
     f << "\"\n";
-    if (UA) {f << "var webappUA = \"" << qUSER_AGENT.toUtf8().data() << "\"\n";}
+    f << "var webappUA = \"" << qUSER_AGENT.toUtf8().data() << "\"\n";
     if (hapticLinks) {f << "var hapticLinks = \"true\"\n";}
     if (audibleLinks) {f << "var audibleLinks = \"true\"\n";}
     f.close();
