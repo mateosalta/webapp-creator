@@ -67,6 +67,8 @@ Page {
                 text: i18n.tr("Ogra Container Options")
 				font.bold: true
 			}
+
+
             
           /*  TextArea {
                 id: ograUserAgent
@@ -94,7 +96,12 @@ Page {
 */
             // select user agent
 
+            Label {
+                width: parent.width - marginColumn * 4
+                text: i18n.tr("Optional: Override the default User Agent with the provided one")
+                wrapMode: Text.Wrap
 
+            }
             OptionSelector {
                 id: optionSelector
                 model: listModel
@@ -109,21 +116,51 @@ Page {
             ListModel {
                 id: listModel
                 ListElement { name: "Default"; description: ""}
-                ListElement { name: "Windows 10"; description: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
-                ListElement { name: "macOS"; description: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+                ListElement { name: "Android 8"; description: "Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR3.170623.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36"}
                 ListElement { name: "Chromebook"; description: "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"}
                 ListElement { name: "iOS 10"; description: "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A346 Safari/602.1"}
-                ListElement { name: "Android 8"; description: "Mozilla/5.0 (Linux; Android 8.0.0; Pixel Build/OPR3.170623.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36"}
-
+                ListElement { name: "macOS"; description: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
+                ListElement { name: "Ubuntu Touch Phone"; description: "Mozilla/5.0 (Ubuntu; Mobile) WebKit/537.21"}
+                ListElement { name: "Windows 10"; description: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
             }
-            Label {
-
-                width: parent.width - marginColumn * 4
-                text:  listModel.get(optionSelector.selectedIndex).description
-                wrapMode: Text.Wrap
-            }
-
             ///
+
+            TextArea {
+                id: userScript
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                width: parent.width
+                height: units.gu(15)
+                contentWidth: width
+                contentHeight: height + units.gu(20)
+                maximumLineCount: 0
+                text: ""
+
+            }
+            /*
+            UbuntuShape {
+                id: webAppIcon
+
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: units.gu(20)
+                height: width
+                color: lightColor
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        var importPage = mainPageStack.push(Qt.resolvedUrl("ImportPage.qml"),{"contentType": ContentType.Pictures, "handler": ContentHandler.Source})
+                        importPage.imported.connect(function(fileUrl) {
+                            // Resource optimizations for low-end devices
+                            mainPageStack.clear()
+
+                            mainPageStack.push(pageOgraWebapp)
+                        })
+                    }
+               }
+}*/
+            
             Row {
                 spacing: units.gu(1)
                 CheckBox {
@@ -145,6 +182,7 @@ Page {
                 }
             }
         }
+
         /* To finish and add on v1.5
         Label {
             id: ograCirclesTitle
@@ -324,10 +362,10 @@ Page {
                     lib.insertConfig (appName.text, appNick.text, appUrl.text, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, useOgraHapticLinks.checked, listModel.get(optionSelector.selectedIndex).description, httpsUrl.checked, useOgraAudibleLinks.checked);
 					
                     console.log("\nqml: insertQML: ")
-                    lib.insertQML (appName.text, appNick.text/*, "ubuntustyle.js"*/);
+                    lib.insertQML (appName.text, appNick.text, userScript.text);
 
 					console.log("\nqml: insertDesktop ");
-                    lib.insertDesktop(appName.text, appDescription.text, appTitle.text, appUrl.text, optionsVector, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, appProviderName.text, appUserAgent.text, httpsUrl.checked, true, png, spalshScreenColor.text); //true -> isOgra?
+                    lib.insertDesktop(appName.text, appDescription.text, appTitle.text, appUrl.text, optionsVector, appUrlPattern.text, appUrlPattern2.text, appUrlPattern3.text, urls, appProviderName.text, listModel.get(optionSelector.selectedIndex).description, httpsUrl.checked, true, png, spalshScreenColor.text); //true -> isOgra?
 
 					//Generate the click
 					console.log("\nqml: genClick ");

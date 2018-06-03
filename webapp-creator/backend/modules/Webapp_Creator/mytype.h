@@ -37,7 +37,7 @@ public:
                        QString qUSER_AGENT, bool https, bool audibleLinks);
 
     // This function sets the qml files of Ogra's alternate webapp container
-    Q_INVOKABLE void insertQML (QString qname, QString qalias);
+    Q_INVOKABLE void insertQML (QString qname, QString qalias, QString quserscript);
 
     // This function creates the Webapp files and folders
     Q_INVOKABLE void createFiles(QString qname, bool ogra, bool png, bool selIcon, QString iconSource);

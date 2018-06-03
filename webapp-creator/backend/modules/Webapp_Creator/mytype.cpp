@@ -271,6 +271,8 @@ void MyType::insertConfig (QString qname, QString qalias, QString qurl, QString 
     char USER_AGENT[SHORT] = {'\0'};
     strcat(USER_AGENT, qUSER_AGENT.toUtf8().data());
 
+
+
     char file[] = "";
     strcat(file,workPath);
     strcat(file,"config.js");
@@ -300,10 +302,13 @@ void MyType::insertConfig (QString qname, QString qalias, QString qurl, QString 
     if (hapticLinks) {f << "var hapticLinks = \"true\"\n";}
     if (audibleLinks) {f << "var audibleLinks = \"true\"\n";}
     f.close();
+
+
 }
 
+
 // This function sets the qml files of Ogra's alternate webapp container
-void MyType::insertQML (QString qname, QString qalias){
+void MyType::insertQML (QString qname, QString qalias, QString quserscript){
 
     char name[SHORT] = {'\0'};
     strcat(name, qname.toUtf8().data());
@@ -311,9 +316,9 @@ void MyType::insertQML (QString qname, QString qalias){
     char alias[SHORT] = {'\0'};
     strcat(alias, qalias.toUtf8().data());
 
+    char userscript[SHORT] = {'\0'};
+    strcat(userscript, quserscript.toUtf8().data());
 
- /*    char userscript[SHORT] = {'\0'};
-     strcat(userscript, quserscript.toUtf8().data());*/
 
 
     char file[] = "";
@@ -378,18 +383,17 @@ void MyType::insertQML (QString qname, QString qalias){
     "            id: clicksound\n"
     "            source: \"../sounds/Click.wav\"\n"
     "        }\n"
-    " WebContext {\n"
-    "                id: webcontext\n"
-    "                userAgent: myUA\n"
-  /*  "                userScripts: [\n"
-    "                    Oxide.UserScript {\n"
-    "                        context: \"oxide://\"\n"
-    "                        url: Qt.resolvedUrl(\"../userscripts/" << quserscript.toUtf8().data() << "\")\n"
-    "                        matchAllFrames: true\n"
-    "                    }
-    "                ]\n"\n"*/
-    "            }"
-    "\n"
+                                                                                           "WebContext {\n"
+                                                                                           "                id: webcontext\n"
+                                                                                           "                userAgent: myUA\n"
+                                                                                           "                userScripts: [\n"
+                                                                                           "                    Oxide.UserScript {\n"
+                                                                                           "                        context: \"oxide://\"\n"
+                                                                                           "                        url: Qt.resolvedUrl(\"../userscripts/userscript.js\")\n"
+                                                                                           "                        matchAllFrames: true\n"
+                                                                                           "                    }\n"
+                                                                                           "                ]\n"
+                                                                                           "            }\n"
     "        WebView {\n"
     "\n"
     "            id: webview\n"
@@ -1414,6 +1418,46 @@ void MyType::insertQML (QString qname, QString qalias){
                "\n"
                "}";
           f.close();
+          char file11[] = "";
+          strcat(file11,workPath);
+          strcat(file11,"userscripts/userscript.js");
+          f.open(file11);
+          f  <<  "// ==UserScript==\n"
+                 "// @name          Youtube webapp\n"
+                 "// @namespace     http://userstyles.org\n"
+                 "// @description\t  \n"
+                 "// @author       \n"
+                 "// @homepage      http://userstyles.org/styles/53365\n"
+                 "// @include       http://m.youtube.com/*\n"
+                 "// @include       https://m.youtube.com/*\n"
+                 "// @run-at        document-start\n"
+                 "// ==/UserScript==\n"
+                 "(function() {\n"
+                 "var css = \"* {\\nfont-family: \\\"Ubuntu\\\" !important;\\nfont-size: 10pt !important;} \\n\\n\\n \t \\n\\n\\n \t\t\t\t\t\t.ic {\\nposition: fixed !important;\\nwidth: 100% !important;\\nbox-shadow:0 2px 2px rgba(0,0,0,0.5);\\nz-index: 100 !important;\\n} \\n\\n\\n\t\t\t\t\t\t\t\t\t\t@media screen and (orientation:portrait) {\\nvideo{\\nposition: fixed !important;\\nz-index: 1000 !important;\\nwidth: 100% !important;\\nheigth: auto !important;\\nbackground-color: #000000 !important;\\ntop: 0px !important;\\nbox-shadow:0 2px 2px rgba(0,0,0,0.5);\\n}\\n} \\n\\n\\n\t \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t._mfb {\\nposition: relative !important;\\nwidth: 100% !important;\\n\\nheigth: auto !important;top: 0px !important;\\noverflow: hidden !important;\\n}\t \\n\\n\\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.zcb {\\nposition: relative !important;\\nwidth: 100% !important;\\nbackground-color: #ffffff !important;\\ntop: auto !important;\\nz-index: 1 !important;\\n\\npadding-bottom: 50px !important;\\n} \\n\\n\\n\t.eo {\\ncolor: #ffffff !important;\\n} \\n\\n\\n\th1, h2, h3 {\\ncolor: #ffffff !important;\\n} \\n\\n\\n h4 {\\ncolor: #ffffff !important;\\n} \\n\\n\\n\t.cgb {\\ncolor: #ffffff !important;\\n} \\n\\n\\n .atom .op {\\ncolor: #ffffff !important;\\n} \\n\\n\\n\t.to, .videoMastheadCta, .so, .mp, .jp, .qp, .kp, .pp, .bab {\\ncolor: #ffffff !important;\\n} .uo .zv a {\\ncolor: #ffffff !important;\\n} \\n\\n\\n .uo .yn {\\ncolor: #ffffff !important;\\n} \\n\\n\\n .dub {\\ncolor: #ffffff !important;\\n} \\n\\n\\n  span.plb {\\ncolor: #ffffff !important;\\n} \\n\\n\\n  .xvb {\\ncolor: #ffffff !important;\\n} \\n\\n\\n  body.atom {\\nbackground: #2d2d2d !important;\\n} \\n\\n\\n .wvb {\\nbackground-color: #2d2d2d !important;\\n} \\n\\n\\n .jtb {\\nbackground-color: #2d2d2d !important;\\n} \\n\\n\\n .kib {\\nbackground-color: #2d2d2d !important;\\n} \\n\\n\\n .jib {\\nbackground-color: #2d2d2d !important;\\n} \\n\\n\\n .hnb, .shelf, .e, .pub .fhb, .pub .umb, .kw {\\nbackground-color: #000000 !important;\\nborder: 1px solid #000000 !important;\\n} \\n\\n\\n\\n\\n\\n\"\n"
+                 "\n"
+                 "\n"
+                 ";\n"
+                 "\n"
+                 "if (typeof GM_addStyle != \"undefined\") {\n"
+                 "\tGM_addStyle(css);\n"
+                 "} else if (typeof PRO_addStyle != \"undefined\") {\n"
+                 "\tPRO_addStyle(css);\n"
+                 "} else if (typeof addStyle != \"undefined\") {\n"
+                 "\taddStyle(css);\n"
+                 "} else {\n"
+                 "\tvar node = document.createElement(\"style\");\n"
+                 "\tnode.type = \"text/css\";\n"
+                 "\tnode.appendChild(document.createTextNode(css));\n"
+                 "\tvar heads = document.getElementsByTagName(\"head\");\n"
+                 "\tif (heads.length > 0) {\n"
+                 "\t\theads[0].appendChild(node); \n"
+                 "\t} else {\n"
+                 "\t\t// no head yet, stick it whereever\n"
+                 "\t\tdocument.documentElement.appendChild(node);\n"
+                 "\t}\n"
+                 "}\n"
+                 "})();";
+          f.close();
 
 }
 
@@ -1482,6 +1526,8 @@ void MyType::createFiles(QString qname, bool ogra, bool png, bool selIcon, QStri
 
     if (ogra) {
         appDir.mkpath("qml/UCSComponents");
+        appDir.mkpath("userscripts");
+
         appDir.mkpath("sounds");
 
         //Copy sound file
@@ -1507,6 +1553,9 @@ void MyType::createFiles(QString qname, bool ogra, bool png, bool selIcon, QStri
         QTextStream outConfigJs(&configJs);
         outConfigJs << "";
         configJs.close();
+
+
+
 
         //Create Main.qml
         QFile mainQml(appDir.filePath("qml/Main.qml"));
@@ -1595,6 +1644,14 @@ void MyType::createFiles(QString qname, bool ogra, bool png, bool selIcon, QStri
         QTextStream outRbe(&rbe);
         outRbe << "";
         rbe.close();
+
+        //Create userscript.js
+        QFile userJs(appDir.filePath("userscripts/userscript.js"));
+        if (!userJs.open(QIODevice::WriteOnly | QIODevice::Text))
+                return;
+        QTextStream outUserJs(&userJs);
+        outUserJs << "";
+        userJs.close();
     }
     else {
         //Create apparmor

@@ -52,7 +52,6 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
 install(DIRECTORY "app/extras" DESTINATION ${DATA_DIR})
 install(FILES "webapp-creator.apparmor" DESTINATION ${DATA_DIR})
-install(FILES "wac-contenthub.json" DESTINATION ${DATA_DIR})
 install(FILES "app/placeholder-app-icon.svg" DESTINATION ${WEBAPP-CREATOR_DIR})
 install(FILES "app/graphics/ci.svg" DESTINATION ${WEBAPP-CREATOR_DIR})
 install(FILES "app/graphics/ju.svg" DESTINATION ${WEBAPP-CREATOR_DIR})
